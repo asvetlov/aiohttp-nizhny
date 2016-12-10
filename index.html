@@ -73,7 +73,7 @@
             <h1>To save memory!</h1>
           </section>
           <section>
-            <h2>WSGI setup</h2>
+            <h2>WSGI</h2>
             <ul>
               <li>500 Mb process</li>
               <li>100 ms response time</li>
@@ -83,7 +83,7 @@
             </ul>
           </section>
           <section>
-            <h2>aiohttp</h2>
+            <h2>Async</h2>
             <ul>
               <li>500 Mb process</li>
               <li>103-105 ms response time</li>
@@ -96,6 +96,13 @@
             <ul>
               <li>Latency: 50 ms → 3-15 sec</li>
               <li>Response: 50 ms → 0.5-1 sec</li>
+            </ul>
+          </section>
+          <section>
+            <h2>Total Failure</h2>
+            <ul>
+              <li>0.01% requests with 1 min latency</li>
+              <li>Response: 50 ms → 5-15 minutes</li>
             </ul>
           </section>
         </section>
@@ -117,22 +124,12 @@ async def handler(request):
             <pre><code>
 async def handler(request):
     value1, value2 = await asyncio.gather(get_part1(request),
-                                          get_part2(request),
-                                          loop=request.app.loop)
+                                          get_part2(request))
     return render_response(value1, value2)
             </code></pre>
           </section>
           <section data-background="pipe_vs_seq.svg" data-background-size="60%">
             <br/>
-          </section>
-          <section>
-            <pre><code>
-async def handler(request):
-    value1, value2 = await asyncio.gather(get_part1(request),
-                                          get_part2(request),
-                                          loop=request.app.loop)
-    return render_response(value1, value2)
-            </code></pre>
           </section>
           <section>
             <h2>Hidden concurrency</h2>
@@ -142,6 +139,9 @@ async def handler(request):
     value2 = await get_part2(request)
     return render_response(value1, value2)
             </code></pre>
+          </section>
+          <section data-background="multitasks.svg" data-background-size="60%">
+            <br/>
           </section>
         </section>
         <section>
@@ -215,7 +215,7 @@ with asyncio_timeout.timeout(10):
             <p>
               <small>http://asvetlov.blogspot.com</small><br>
               <small>andrew.svetlov@gmail.com</small><br>
-              <small>http://asvetlov.github.io/aiohttp-krasnoyarsk-2016/</small>
+              <small>http://asvetlov.github.io/aiohttp-nizhny-2016/</small>
             </p>
           </p>
         </section>
